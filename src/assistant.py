@@ -213,6 +213,7 @@ def get_inote(text):
 
     return 'note added'
 
+#make new text note
 def get_note(text):
     import uuid
     file_name = uuid.uuid4().hex
@@ -369,13 +370,13 @@ def main_loop():
                 except wikipedia.DisambiguationError:
                     pass # to many options
 
-            #make a new iNote
+            #make an iNote
             if 'make a note' in text and response == '':
                 assistant_response('what is your note')
                 text = record_audio()
                 response = get_inote(text)
 
-            #make a note
+            #make a text note
             if 'make a text note' in text and response == '':
                 assistant_response('what is your note')
                 text = record_audio()
