@@ -89,7 +89,8 @@ The functions for this program are:
     * Cube a number
     * x to the power of x
     * Find the square root
-* Make a note (iNote)
+* Make a note... (iNote)
+* Make a text note...
 * Open YouTube
 * Search YouTube for...
 * Open and search with search engines (Default is DuckDuckGo)

@@ -213,6 +213,16 @@ def get_inote(text):
 
     return 'note added'
 
+def get_note(text):
+    import uuid
+    file_name = uuid.uuid4().hex
+    file = open(f'resources/notes/{file_name}.txt', 'w')
+    text = text.capitalize()
+    file.write(text)
+    file.close()
+
+    return 'note added'
+
 #webbroswer commands
 def get_site(text, terms= None):
     from resources import site_search
@@ -364,6 +374,12 @@ def main_loop():
                 assistant_response('what is your note')
                 text = record_audio()
                 response = get_inote(text)
+
+            #make a note
+            if 'make a text note' in text and response == '':
+                assistant_response('what is your note')
+                text = record_audio()
+                response = get_note(text)
 
             #youtube
             if 'open youtube' in text and response == '':
