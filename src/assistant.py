@@ -491,13 +491,19 @@ def main_loop():
             if 'make a note' in text and response == '':
                 assistant_response('what is your note')
                 text = record_audio()
-                response = get_inote(text)
+                if text == '':
+                    response = ''
+                else:
+                    response = get_inote(text)
 
             #make a text note
             if 'make a text note' in text and response == '':
                 assistant_response('what is your note')
                 text = record_audio()
-                response = get_note(text)
+                if text == '':
+                    response = ''
+                else:
+                    response = get_note(text)
 
             #youtube
             if 'open youtube' in text and response == '':
