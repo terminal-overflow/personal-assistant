@@ -55,7 +55,7 @@ python3 assistant.py
 
 ## Startup
 ---
-Personal assistant will say initiaising... and then begin to listen indefinitely.
+Personal assistant will say initialising... and then begin to listen indefinitely.
 The speech it detects will be displayed in your terminal/IDE.
 
 ### Wake word
