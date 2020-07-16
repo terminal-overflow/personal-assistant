@@ -5,6 +5,7 @@ import datetime
 import os
 import random
 import subprocess
+import threading
 
 #startup
 def startup():
@@ -181,6 +182,80 @@ def system(command):
         sleep = system_short.sleep()
         return sleep
 
+#return a second value for timer
+def get_timer(text):
+    import time
+    minute_num = None
+    second_num = None
+    hour_num = None
+
+    for i in range(len(text)):
+        if text[i] == '-':
+            text = text.replace('-', ' ')
+
+    text = text.split()
+
+    if 'one' in text:
+        str(text.replace('one', 1))
+    elif 'two' in text:
+        str(text.replace('two', 2))
+    elif 'three' in text:
+        str(text.replace('three', 3))
+    elif 'four' in text:
+        str(text.replace('four', 4))
+    elif 'five' in text:
+        str(text.replace('five', 5))
+    elif 'six' in text:
+        str(text.replace('six', 6))
+    elif 'seven' in text:
+        str(text.replace('seven', 7))
+    elif 'eight' in text:
+        str(text.replace('eight', 8))
+    elif 'nine' in text:
+        str(text.replace('nine', 9))
+
+    if 'second' in text or 'seconds':
+        for i in range(len(text)):
+            if text[i] == 'second' or text[i] == 'seconds':
+                second_num = text[i-1]
+                second_num = int(second_num)
+    if 'minute' in text or 'minutes' in text:
+        for i in range(len(text)):
+            if text[i] == 'minute' or text[i] == 'minutes':
+                minute_num = text[i-1]
+                minute_num = int(minute_num)
+                minute_num = minute_num * 60
+    if 'hour' in text or 'hours' in text:
+        for i in range(len(text)):
+            if text[i] == 'hour' or text[i] == 'hours':
+                hour_num = text[i-1]
+                hour_num = int(hour_num)
+                hour_num = hour_num * 3600
+
+    if hour_num == None and minute_num == None and second_num == None:
+        return ''
+    elif hour_num == None and minute_num == None:
+        final_num = second_num
+    elif hour_num == None and second_num == None:
+        final_num = minute_num
+    elif minute_num == None and second_num == None:
+        final_num = hour_num
+    elif second_num == None:
+        final_num = hour_num + minute_num
+    elif minute_num == None:
+        final_num = hour_num + second_num
+    elif hour_num == None:
+        final_num = minute_num + second_num
+    else:
+        final_num = hour_num + minute_num + second_num
+
+    final_num = float(final_num)
+    return final_num
+#sound function for timer thread
+def timer_sound():
+    audio_file = 'resources/alarm.wav'
+    subprocess.Popen(['afplay', audio_file])
+
 #get wikipedia search words
 def get_wiki(text):
     word_list = text.split()
@@ -282,6 +357,7 @@ def get_application(app):
 def main_loop():
     startup()
     local_request = wake_word('request')
+    timerT = False
     while True:
         text = record_audio()
         text = str(text.lower())
@@ -359,6 +435,47 @@ def main_loop():
             if 'sleep' == text and response == '':
                 response = system('sleep')
                 exit()
+
+            #set a timer
+            if 'set a timer' in text:
+                try:
+                    if timerT.is_alive():
+                        response = 'timer is already set'
+                    else:
+                        assistant_response('timer for how long')
+                        text = record_audio()
+                        text = str(text.lower())
+                        if text == '':
+                            response = ''
+                        else:
+                            interval = get_timer(text)
+                            timerT = threading.Timer(interval= interval,
+                            function= timer_sound)
+                            timerT.start()
+                            response = 'timer set'
+                except AttributeError:
+                    assistant_response('timer for how long')
+                    text = record_audio()
+                    text = str(text.lower())
+                    if text == '':
+                        response = ''
+                    else:
+                        interval = get_timer(text)
+                        timerT = threading.Timer(interval= interval,
+                        function= timer_sound)
+                        timerT.start()
+                        response = 'timer set'
+            
+            #stop a timer
+            if 'stop the timer' in text or 'stop a timer' in text:
+                try:
+                    if timerT.is_alive():
+                        timerT.cancel()
+                        response = 'timer stopped'
+                    else:
+                        response = 'timer is not set'
+                except AttributeError:
+                    response = 'timer is not set'
 
             #check wikipedia
             if 'search wikipedia' in text and response == '':

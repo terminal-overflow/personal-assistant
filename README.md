@@ -75,6 +75,7 @@ The functions for this program are:
     * what is your name
 * Get current time
 * Get current Date
+* Get spelling of word
 * Simple system controls
     * System report
     * Volume up
@@ -82,7 +83,7 @@ The functions for this program are:
     * Mute
     * Unmute
     * Sleep
-* Get spelling of word
+* Set a timer
 * Search wikipedia for...
 * Perform maths calculations
     * +, -, *, /
