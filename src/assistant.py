@@ -588,7 +588,8 @@ def main_loop():
                         app = ' '.join(app)
                         response = open_application(app)
             #open news application
-            if 'what\'s the' in text and 'news' in text:
+            if (('what\'s the' in text and 'news' in text
+            or 'what is the' in text and 'news' in text) and response == ''):
                 response = open_application('news')
 
             #close application
