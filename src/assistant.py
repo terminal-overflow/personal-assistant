@@ -587,6 +587,9 @@ def main_loop():
                         app = text_split[i+1:]
                         app = ' '.join(app)
                         response = open_application(app)
+            #open news application
+            if 'what\'s the' in text and 'news' in text:
+                response = open_application('news')
 
             #close application
             if 'close' in text and response == '':
