@@ -330,7 +330,7 @@ def get_site(text, terms= None):
         return ''
 
 #search for and open application on system
-def get_application(app):
+def open_application(app):
     application_dir = os.listdir('/Applications')
     application_dir1 = os.listdir('/System/Applications')
     application_dir2 = os.listdir('/System/Applications/Utilities')
@@ -352,6 +352,31 @@ def get_application(app):
         result = result.decode('UTF-8')
 
         return 'opening'
+    return ''
+
+#search for and close application on system
+def close_application(app):
+    application_dir = os.listdir('/Applications')
+    application_dir1 = os.listdir('/System/Applications')
+    application_dir2 = os.listdir('/System/Applications/Utilities')
+    for i in range(len(application_dir)):
+        application_dir.append(application_dir[i].lower())
+
+    for i in range(len(application_dir1)):
+        application_dir.append(application_dir1[i].lower())
+
+    try:
+        for i in range(len(application_dir2)):
+            application_dir.append(application_dir2[i].lower())
+    except:
+        pass
+
+    if f'{app}.app' in application_dir and not app.startswith('.'):
+        r = f'osascript -e \'tell application "{app}" to quit\''
+        result = subprocess.check_output(r, shell= True)
+        result = result.decode('UTF-8')
+
+        return 'closing'
     return ''
 
 def main_loop():
@@ -555,13 +580,21 @@ def main_loop():
                         terms = '+'.join(terms)
                         response = get_site('search bing', terms= terms)
 
-            #open applications
+            #open application
             if 'open' in text and response == '':
                 for i in range(len(text_split)):
                     if text_split[i] == 'open':
                         app = text_split[i+1:]
                         app = ' '.join(app)
-                        response = get_application(app)
+                        response = open_application(app)
+
+            #close application
+            if 'close' in text and response == '':
+                for i in range(len(text_split)):
+                    if text_split[i] == 'close':
+                        app = text_split[i+1:]
+                        app = ' '.join(app)
+                        response = close_application(app)
 
 
             #respond back using audio

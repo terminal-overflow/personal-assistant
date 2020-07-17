@@ -103,6 +103,7 @@ The functions for this program are:
     * Open Bing
     * Search Bing for...
 * Open... (apps on system)
+* Close... (apps on system)
 
 ### Unkown Commands
 ---
