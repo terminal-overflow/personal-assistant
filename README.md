@@ -1,4 +1,4 @@
-# Python Voice Activated Personal Assistant
+# Python Personal Assistant
 ## Personal Assistant Information
 ---
 This personal assistant uses speechrecognition to convert STT and uses 
