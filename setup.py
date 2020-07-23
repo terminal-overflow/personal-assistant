@@ -11,11 +11,11 @@ setup(
     long_description= ld,
     long_description_content_type= 'text/markdown',
     license= 'MIT',
-    classifiers= [
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License'
-    ],
+    #classifiers= [
+    #    'Development Status :: 5 - Production/Stable',
+    #    'Intended Audience :: Developers',
+    #    'License :: OSI Approved :: MIT License'
+    #],
     keywords= 'personal virtual assistant',
     packages= find_packages(),
     py_modules= ['assistant'],
