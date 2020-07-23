@@ -6,7 +6,7 @@ with open('README.md', 'r') as readme_file:
 setup(
     name= 'personal-assistant',
     version= '1.0.0',
-    #url= '',
+    url= 'https://github.com/terminal-flow/personal-assistant',
     description= 'A virtual assistant that completes tasks and gives you results from your computer',
     long_description= ld,
     long_description_content_type= 'text/markdown',
