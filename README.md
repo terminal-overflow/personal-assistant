@@ -9,14 +9,13 @@ on your computer or just to get information for you.
 This program is only available for OS X computers at this moment in time
 
 ### Dependencies
----
 * speechrecognition
 * pyaudio (install port audio if any problems)
 * pyttsx3
 * wikipedia
 
-## Installation and Usage via GitHub
 ---
+## Installation and Usage via GitHub
 #### Setting up a virtual environment (optional)
 ```
 virtualenv <environment name>
@@ -33,13 +32,11 @@ source <environment name>/bin/activate
 * Unzip the project file
 
 ### Go to the project root
----
 ```
 cd personal-assistant
 ```
 
 ### Install
----
 ```
 pip3 install .
 ```
@@ -47,32 +44,39 @@ pip3 install .
 This may take around a minute
 
 ### Run
----
-``` 
+```
 cd src
 python3 assistant.py
 ```
 
-## Startup
 ---
+## Startup
 Personal assistant will say initialising... and then begin to listen indefinitely.
 The speech it detects will be displayed in your terminal/IDE.
 
 ### Wake word
----
 The default wake word is 'computer' and can be changed to any word.
 
+---
+## Voice mode
 If just the wake word is heard, personal assistant will play a welcoming tone
 and wait for your command for around 5 seconds. If no sound is heard, personal
 assistant will disregard.
 
-### Functions
 ---
+## Text mode
+All the inputs will need to be typed in your terminal/IDE, however,
+the wake word does not need to be typed. The outputs will all be text based and clear.
+
+---
+## Functions
+
 The functions for this program are:
 * Greetings (you can say)
     * hello, hi, hey etc
     * thank you, thanks, cheers
     * what is your name
+* Change mode
 * Get current time
 * Get current Date
 * Get spelling of word
@@ -105,17 +109,17 @@ The functions for this program are:
 * Open... (apps on system)
 * Close... (apps on system)
 
-### Unkown Commands
 ---
+## Unkown Commands
 If you say an unknown command, personal assistant will play a disregard tone.
 
-### Exiting
 ---
+## Exiting
 Personal assistant will exit by hearing one of three words (as well as the wake word):
 * Stop
 * Quit
 * Exit
 
-## License
 ---
+## License
 Personal assistant is released under the MIT license. See LICENSE for details.
