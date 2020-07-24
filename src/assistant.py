@@ -382,14 +382,9 @@ def close_application(app):
 def main_loop():
     startup()
     local_request = wake_word('request')
-    voice = True
     timerT = False
     while True:
-        if voice == True:
-            text = record_audio()
-        else:
-            text = input(f'{local_request.capitalize()}: ')
-            text = f'{local_request} {text}'
+        text = record_audio()
         text = str(text.lower())
         text_split = text.split()
 
@@ -415,20 +410,8 @@ def main_loop():
 
             if ('quit' == text or 'exit' == text or 'stop' == text):
                 response = 'goodbye'
-                if voice == True:
-                    assistant_response(response)
-                else:
-                    print(response.capitalize())
+                assistant_response(response)
                 exit()
-
-            #check for mode change
-            if 'change mode' == text and response == '':
-                if voice == True:
-                    voice = False
-                    response = 'text mode activated'
-                else:
-                    voice = True
-                    response = 'voice mode activated'
 
             #check for date
             if (('what is the date' in text or 'what\'s the date' in text) and
@@ -442,10 +425,7 @@ def main_loop():
 
             #check spelling
             if 'how do you spell' in text and response == '':
-                if voice == True:
-                    response = get_spelling(text)
-                else:
-                    pass
+                response = get_spelling(text)
 
             #system commands
             #system report
@@ -487,12 +467,8 @@ def main_loop():
                     if timerT.is_alive():
                         response = 'timer is already set'
                     else:
-                        if voice == True:
-                            assistant_response('timer for how long')
-                            text = record_audio()
-                        else:
-                            print('timer for how long')
-                            text = input(f'{local_request.capitalize()}: ')
+                        assistant_response('timer for how long')
+                        text = record_audio()
                         text = str(text.lower())
                         if text == '':
                             response = ''
@@ -503,12 +479,8 @@ def main_loop():
                             timerT.start()
                             response = 'timer set'
                 except AttributeError:
-                    if voice == True:
-                        assistant_response('timer for how long')
-                        text = record_audio()
-                    else:
-                        print('timer for how long')
-                        text = input(f'{local_request.capitalize()}: ')
+                    assistant_response('timer for how long')
+                    text = record_audio()
                     text = str(text.lower())
                     if text == '':
                         response = ''
@@ -542,12 +514,8 @@ def main_loop():
 
             #make an iNote
             if 'make a note' in text and response == '':
-                if voice == True:
-                    assistant_response('what is your note')
-                    text = record_audio()
-                else:
-                    print('what is your note')
-                    text = input(f'{local_request.capitalize()}: ')
+                assistant_response('what is your note')
+                text = record_audio()
                 if text == '':
                     response = ''
                 else:
@@ -555,12 +523,8 @@ def main_loop():
 
             #make a text note
             if 'make a text note' in text and response == '':
-                if voice == True:
-                    assistant_response('what is your note')
-                    text = record_audio()
-                else:
-                    print('what is your note')
-                    text = input(f'{local_request.capitalize()}: ')
+                assistant_response('what is your note')
+                text = record_audio()
                 if text == '':
                     response = ''
                 else:
@@ -638,13 +602,9 @@ def main_loop():
 
 
             #respond back using audio
-            if (response == '' or response == None) and voice == True:
+            if response == '' or response == None:
                 audio_file = 'resources/unsure.wav'
                 subprocess.call(['afplay', audio_file])
-            elif (response == '' or response == None) and voice == False:
-                print('I\'m not sure')
-            elif voice == False:
-                print(response.capitalize())
             else:
                 assistant_response(response)
 
