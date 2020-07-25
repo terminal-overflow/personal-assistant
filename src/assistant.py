@@ -20,7 +20,7 @@ def startup():
     #else:
     #    assistant_response('Good Evening, how may I help')
 
-#record audio and return audio as string
+#listen to audio and return audio as string
 def record_audio():
     #record inputted audio
     r = sr.Recognizer() #create a recogniser object
