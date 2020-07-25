@@ -66,7 +66,8 @@ assistant will disregard.
 ---
 ## Text mode
 All the inputs will need to be typed in your terminal/IDE, however,
-the wake word does not need to be typed. The outputs will all be text based and clear.
+the wake word does not need to be typed. All the outputs, except for the timer,
+will all be outputted as text.
 
 ---
 ## Functions
