@@ -492,7 +492,7 @@ def main_loop():
                             text = record_audio()
                         else:
                             print('timer for how long')
-                            text = input(f'{local_request.capitalize()}: ')
+                            text = input('Timer: ')
                         text = str(text.lower())
                         if text == '':
                             response = ''
@@ -508,7 +508,7 @@ def main_loop():
                         text = record_audio()
                     else:
                         print('timer for how long')
-                        text = input(f'{local_request.capitalize()}: ')
+                        text = input('Timer: ')
                     text = str(text.lower())
                     if text == '':
                         response = ''
