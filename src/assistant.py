@@ -482,7 +482,8 @@ def main_loop():
                 exit()
 
             #set a timer
-            if 'set a timer' in text:
+            if (('set a timer' in text or 'start a timer' in text
+            or 'start timer' in text) and response == ''):
                 try:
                     if timerT.is_alive():
                         response = 'timer is already set'
@@ -520,7 +521,8 @@ def main_loop():
                         response = 'timer set'
             
             #stop a timer
-            if 'stop the timer' in text or 'stop a timer' in text:
+            if (('stop the timer' in text or 'cancel the timer' in text
+            or 'cancel timer' in text) and response == ''):
                 try:
                     if timerT.is_alive():
                         timerT.cancel()
@@ -626,7 +628,8 @@ def main_loop():
             #open news application
             if (('what\'s the' in text and 'news' in text
             or 'what is the' in text and 'news' in text) and response == ''):
-                response = open_application('news')
+                open_application('news')
+                response = 'opening news'
 
             #close application
             if 'close' in text and response == '':
