@@ -5,7 +5,6 @@ import datetime
 import os
 import random
 import subprocess
-import threading
 
 #startup
 def startup():
@@ -380,6 +379,7 @@ def close_application(app):
     return ''
 
 def main_loop():
+    import threading
     startup()
     local_request = wake_word('request')
     voice = True
