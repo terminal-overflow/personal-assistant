@@ -1,12 +1,10 @@
 # Python Personal Assistant
 ## Personal Assistant Information
 ---
-This personal assistant uses speechrecognition to convert STT and uses 
-pyttsx3 for TTS. The purpose of this program is to help you with certain tasks 
-on your computer or just to get information for you.
+This personal assistant uses speechrecognition to convert STT and uses pyttsx3 for TTS. The purpose of this program is to help you with certain tasks on your computer or just to get information for you.
 
 ### Note
-This program is only available for OS X computers at this moment in time
+This program is only available for OS X computers at this moment in time.
 
 ### Dependencies
 * speechrecognition
@@ -44,30 +42,41 @@ pip3 install .
 This may take around a minute
 
 ### Run
+
 ```
-cd src
+cd src 
 python3 assistant.py
 ```
+or
+```
+cd src
+python3 assistant.py -h
+```
+for more information on optional arguments.
 
 ---
-## Startup
+## Startup arguments
+The optional startup arguments are mode and verbose.
+* mode `-m text` for startup text mode - default is voice mode
+* verbose `-v off` for no verbose - default is on
+
+## Startup with Voice Mode
 Personal assistant will say initialising... and then begin to listen indefinitely.
-The speech it detects will be displayed in your terminal/IDE.
+If the verbose argument is on, the speech it detects will be displayed in your terminal/IDE.
+Otherwise no text will be outputted, except for errors.
+
+## Startup with Text Mode
+Personal assistant will output initialising... and then wait for your command to be entered indefinitely.
 
 ### Wake word
 The default wake word is 'computer' and can be changed to any word.
 
 ---
-## Voice mode
-If just the wake word is heard, personal assistant will play a welcoming tone
-and wait for your command for around 5 seconds. If no sound is heard, personal
-assistant will disregard.
+## Voice Mode
+If just the wake word is heard, personal assistant will play a welcoming tone and wait for your command for around 5 seconds. If no sound is heard, personal-assistant will disregard.
 
----
-## Text mode
-All the inputs will need to be typed in your terminal/IDE, however,
-the wake word does not need to be typed. All the outputs, except for the timer,
-will all be outputted as text.
+## Text Mode
+All the inputs will need to be typed in your terminal/IDE, however, the wake word does not need to be typed. All the outputs, except for the timer, will all be outputted as text.
 
 ---
 ## Functions

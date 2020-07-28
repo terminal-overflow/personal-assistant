@@ -5,19 +5,31 @@ import datetime
 import os
 import random
 import subprocess
+import argparse
+
+#get initial startup arguments
+ap = argparse.ArgumentParser()
+ap.add_argument('-m', '--mode', default= 'voice',
+help= 'type \'text\' to initialise in text mode')
+ap.add_argument('-v', '--verbose', default= 'on',
+help= 'type \'off\' to turn off the output for words spoken')
+args = vars(ap.parse_args())
+args['mode'] = args['mode'].lower()
+args['verbose'] = args['verbose'].lower()
+
+#check for unknown arguments
+if (args['mode'] != 'voice' and args['mode'] != 'text'
+or args['verbose'] != 'on' and args['verbose'] != 'off'):
+    print('Unknown argument')
+    exit()
 
 #startup
-def startup():
-    assistant_response('Personal assistant initialised')
-
-    #hour = int(datetime.datetime.now().hour)
-
-    #if hour >= 0 and hour < 12:
-    #    assistant_response('Good Morning, how may I help')
-    #elif hour >= 12 and hour < 18:
-    #    assistant_response('Good Afternoon, how may I help')
-    #else:
-    #    assistant_response('Good Evening, how may I help')
+def startup(mode):
+    response = 'Personal assistant initialised'
+    if mode == 'text':
+        print(response)
+    else:
+        assistant_response(response)
 
 #listen to audio and return audio as string
 def record_audio():
@@ -32,7 +44,8 @@ def record_audio():
     voice = ''
     try:
         voice = r.recognize_google(audio)
-        print('You said: ' + voice)
+        if args['verbose'] == 'on':
+            print('You said: ' + voice)
     except sr.UnknownValueError:
         pass
     except sr.requestError as e:
@@ -114,7 +127,7 @@ def greeting(text):
     praise = ['your welcome', 'no problem', 'any time']
 
     local_request = wake_word('request')
-    name = [f'my name is {local_request}', 'i am your personal assistant']
+    name = f'my name is {local_request}, I am your personal assistant'
 
     text_split = text.split()
     for i in range(len(text_split)):
@@ -128,7 +141,7 @@ def greeting(text):
 
     if ('what is your name' == text or 'what\'s your name' == text or
     'who are you' == text):
-        return random.choice(name)
+        return name
 
     #if no greeting
     return ''
@@ -380,9 +393,15 @@ def close_application(app):
 
 def main_loop():
     import threading
-    startup()
+
+    #start initial sequence
+    if args['mode'] == 'text':
+        startup('text')
+        voice = False
+    else:
+        startup('voice')
+        voice = True
     local_request = wake_word('request')
-    voice = True
     timerT = False
     while True:
         if voice == True:
