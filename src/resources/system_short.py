@@ -2,7 +2,7 @@ import os
 import subprocess
 
 def system_report():
-    #getting over sysload
+    #getting overall sysload
     r = 'pmset -g sysload'
     result = subprocess.check_output(r, shell= True)
     result = result.decode('UTF-8')
