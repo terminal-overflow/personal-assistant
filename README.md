@@ -44,12 +44,14 @@ This may take around a minute
 ### Run
 
 ```
-cd src 
+cd src
+```
+and
+```
 python3 assistant.py
 ```
 or
 ```
-cd src
 python3 assistant.py -h
 ```
 for more information on optional arguments.
@@ -69,7 +71,7 @@ Otherwise no text will be outputted, except for errors.
 Personal assistant will output initialising... and then wait for your command to be entered indefinitely.
 
 ### Wake word
-The default wake word is 'computer'. To change the wake word, say/type 'change wake word' and then say/type your new **one word** wake word. To change back to default, clear the 'wake_word' file in the settings folder.
+The default wake word is 'computer'. To change the wake word, say/type 'change wake word' and then say/type your new **one word** wake word. To change back to default, clear the 'resources/settings/wake_word.txt' file in the settings folder.
 
 ---
 ## Voice Mode
