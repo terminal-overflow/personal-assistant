@@ -76,7 +76,7 @@ The default wake word is 'computer' and can be changed to any word.
 If just the wake word is heard, personal assistant will play a welcoming tone and wait for your command for around 5 seconds. If no sound is heard, personal-assistant will disregard.
 
 ## Text Mode
-All the inputs will need to be typed in your terminal/IDE, however, the wake word does not need to be typed. All the outputs, except for the timer, will all be outputted as text.
+All the inputs will need to be typed in your terminal/IDE, however, the wake word does not need to be typed. All the outputs, except for the timer, will all be text.
 
 ---
 ## Functions
