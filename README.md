@@ -71,7 +71,7 @@ Otherwise no text will be outputted, except for errors.
 Personal assistant will output initialising... and then wait for your command to be entered indefinitely.
 
 ### Wake word
-The default wake word is 'computer'. To change the wake word, say/type 'change wake word' and then say/type your new **one word** wake word. To change back to default, clear the 'resources/settings/wake_word.txt' file in the settings folder.
+The default wake word is 'computer'. To change the wake word, say/type 'change wake word' and then say/type your new **one word** wake word. To change back to default, clear the `resources/settings/wake_word.txt` file in the settings folder.
 
 ---
 ## Voice Mode
@@ -128,7 +128,7 @@ If you say an unknown command, personal assistant will play a disregard tone.
 
 ---
 ## Exiting
-Personal assistant will exit by hearing one of three words (as well as the wake word):
+Personal assistant will exit by hearing one of three words:
 * Stop
 * Quit
 * Exit
