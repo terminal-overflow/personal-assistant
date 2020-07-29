@@ -124,7 +124,7 @@ The functions for this program are:
 
 ---
 ## Unkown Commands
-If you say an unknown command, personal assistant will play a disregard tone.
+If you say an unknown command, personal assistant will either play a disregard tone or output 'I'm not sure'.
 
 ---
 ## Exiting
