@@ -151,7 +151,7 @@ def greeting(text):
     text_split = text.split()
     for i in range(len(text_split)):
         if text_split[i] in greetings_in:
-            #failsafe for only returning for only greetings_in
+            #failsafe for only returning for greetings_in
             if len(text_split) == 1:
                 return random.choice(greetings_out)
 
@@ -294,8 +294,7 @@ def get_wiki(text):
     for i in range(0, len(word_list)):
         if (word_list[i].lower() == 'search' and
         word_list[i+1].lower() == 'wikipedia' and word_list[i+2] == 'for'):
-            word_list = str(word_list)
-            extra, word_list = word_list.split('for')
+            word_list = word_list[i+3:]
             return word_list
 
 #complete math equations
@@ -496,6 +495,10 @@ def main_loop():
                     text = input('Wake word: ')
                 text = str(text.lower())
                 response = wake_word(text= text, command= 'change')
+            
+            #reset wake word
+            if 'reset wake word' in text and response == '':
+                response = wake_word(text= '', command= 'change')
 
             #check for date
             if (('what is the date' in text or 'what\'s the date' in text) and
