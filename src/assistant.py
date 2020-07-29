@@ -68,20 +68,39 @@ def assistant_response(text):
     except AssertionError:
         pass
 
-#function for wake word
-def wake_word(text):
-    wake_words = 'Computer'
+#wake word control
+def wake_word(text= None, command= None):
+    #write wake word
+    if command == 'change':
+        #one word failsafe
+        if ' ' in text:
+            return 'invalid wake word'
+        file = open('resources/settings/wake_word.txt', 'w')
+        file.write(text)
+        file.close()
+        return 'wake word changed'
+
+    #read wake word
+    file = open('resources/settings/wake_word.txt', 'r')
+    wake_words = file.read()
+    if wake_words == '':
+        wake_words = 'Computer'
     wake_words = wake_words.lower()
+    file.close()
+
+    #one word failsafe
+    if ' ' in wake_words:
+        print('Invalid wake word')
+        exit()
+
+    #return current wake word
+    if command == 'request':
+        return wake_words
 
     text = text.lower()
-
     #check for wake word
     if text.startswith(wake_words):
         return True
-    #get current wake word
-    elif text == 'request':
-        return wake_words
-
     return False
 
 #current date
@@ -126,7 +145,7 @@ def greeting(text):
 
     praise = ['your welcome', 'no problem', 'any time']
 
-    local_request = wake_word('request')
+    local_request = wake_word(command= 'request')
     name = f'my name is {local_request}, I am your personal assistant'
 
     text_split = text.split()
@@ -265,7 +284,7 @@ def get_timer(text):
     return final_num
 #sound function for timer thread
 def timer_sound():
-    audio_file = 'resources/alarm.wav'
+    audio_file = 'resources/sounds/alarm.wav'
     subprocess.Popen(['afplay', audio_file])
 
 #get wikipedia search words
@@ -303,8 +322,23 @@ def get_inote(text):
 #make new text note
 def get_note(text):
     import uuid
+
+    file = open('resources/settings/notes_dir.txt', 'r')
+    file_path = file.read()
+    file.close()
+
     file_name = uuid.uuid4().hex
-    file = open(f'resources/notes/{file_name}.txt', 'w')
+    if file_path == '':
+        file = open(f'resources/notes/{file_name}.txt', 'w')
+    elif not file_path.startswith('/') or not file_path.endswith('/'):
+        if not file_path.startswith('/') and file_path.endswith('/'):
+            file = open(f'/{file_path}{file_name}.txt', 'w')
+        elif file_path.startswith('/') and not file_path.endswith('/'):
+            file = open(f'{file_path}/{file_name}.txt', 'w')
+        else:
+            file = open(f'/{file_path}/{file_name}.txt', 'w')
+    else:
+        file = open(f'{file_path}{file_name}.txt', 'w')
     text = text.capitalize()
     file.write(text)
     file.close()
@@ -401,23 +435,25 @@ def main_loop():
     else:
         startup('voice')
         voice = True
-    local_request = wake_word('request')
     timerT = False
     while True:
+        #get wake word
+        local_request = wake_word(command= 'request')
+
         if voice == True:
             text = record_audio()
         else:
             text = input(f'{local_request.capitalize()}: ')
+            local_request = wake_word(command= 'request')
             text = f'{local_request} {text}'
         text = str(text.lower())
         text_split = text.split()
 
         response = ''
-
-        if wake_word(text) == True:
+        if wake_word(text= text) == True:
             #check for just wake word
             if local_request == text:
-                audio_file = 'resources/accept.wav'
+                audio_file = 'resources/sounds/accept.wav'
                 subprocess.call(['afplay', audio_file])
                 text = record_audio()
                 text = str(text.lower())
@@ -432,6 +468,7 @@ def main_loop():
             if response == '':
                 response = get_math(text)
 
+            #stop personal-assistant
             if ('quit' == text or 'exit' == text or 'stop' == text):
                 response = 'goodbye'
                 if voice == True:
@@ -448,6 +485,17 @@ def main_loop():
                 else:
                     voice = True
                     response = 'voice mode activated'
+
+            #change wake word
+            if 'change wake word' in text and response == '':
+                if voice == True:
+                    assistant_response('what is your new wake word')
+                    text = record_audio()
+                else:
+                    print('What is your new wake word')
+                    text = input('Wake word: ')
+                text = str(text.lower())
+                response = wake_word(text= text, command= 'change')
 
             #check for date
             if (('what is the date' in text or 'what\'s the date' in text) and
@@ -511,34 +559,41 @@ def main_loop():
                             assistant_response('timer for how long')
                             text = record_audio()
                         else:
-                            print('timer for how long')
+                            print('Timer for how long')
                             text = input('Timer: ')
                         text = str(text.lower())
                         if text == '':
                             response = ''
                         else:
                             interval = get_timer(text)
-                            timerT = threading.Timer(interval= interval,
-                            function= timer_sound)
-                            timerT.start()
-                            response = 'timer set'
+                            if type(interval) == float:
+                                timerT = threading.Timer(interval= interval,
+                                function= timer_sound)
+                                timerT.start()
+                                response = 'timer set'
+                            else:
+                                response = ''
+
                 except AttributeError:
                     if voice == True:
                         assistant_response('timer for how long')
                         text = record_audio()
                     else:
-                        print('timer for how long')
+                        print('Timer for how long')
                         text = input('Timer: ')
                     text = str(text.lower())
                     if text == '':
                         response = ''
                     else:
                         interval = get_timer(text)
-                        timerT = threading.Timer(interval= interval,
-                        function= timer_sound)
-                        timerT.start()
-                        response = 'timer set'
-            
+                        if type(interval) == float:
+                            timerT = threading.Timer(interval= interval,
+                            function= timer_sound)
+                            timerT.start()
+                            response = 'timer set'
+                        else:
+                            response = ''
+
             #stop a timer
             if (('stop the timer' in text or 'cancel the timer' in text
             or 'cancel timer' in text) and response == ''):
@@ -567,8 +622,8 @@ def main_loop():
                     assistant_response('what is your note')
                     text = record_audio()
                 else:
-                    print('what is your note')
-                    text = input(f'{local_request.capitalize()}: ')
+                    print('What is your note')
+                    text = input('Note: ')
                 if text == '':
                     response = ''
                 else:
@@ -580,8 +635,8 @@ def main_loop():
                     assistant_response('what is your note')
                     text = record_audio()
                 else:
-                    print('what is your note')
-                    text = input(f'{local_request.capitalize()}: ')
+                    print('What is your note')
+                    text = input('Note: ')
                 if text == '':
                     response = ''
                 else:
@@ -661,7 +716,7 @@ def main_loop():
 
             #respond back using audio
             if (response == '' or response == None) and voice == True:
-                audio_file = 'resources/unsure.wav'
+                audio_file = 'resources/sounds/unsure.wav'
                 subprocess.call(['afplay', audio_file])
             elif (response == '' or response == None) and voice == False:
                 print('I\'m not sure')

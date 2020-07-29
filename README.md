@@ -69,7 +69,7 @@ Otherwise no text will be outputted, except for errors.
 Personal assistant will output initialising... and then wait for your command to be entered indefinitely.
 
 ### Wake word
-The default wake word is 'computer' and can be changed to any word.
+The default wake word is 'computer'. To change the wake word, say/type 'change wake word' and then say/type your new **one word** wake word. To change back to default, clear the 'wake_word' file in the settings folder.
 
 ---
 ## Voice Mode
@@ -87,6 +87,7 @@ The functions for this program are:
     * thank you, thanks, cheers
     * what is your name
 * Change mode
+* Change wake word
 * Get current time
 * Get current Date
 * Get spelling of word
