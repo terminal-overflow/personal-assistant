@@ -467,6 +467,7 @@ def main_loop():
             if text.strip() == '' and voice == 'text':
                 continue
 
+            #beginning of functions
             #check for greetings
             response = greeting(text)
 
@@ -731,7 +732,7 @@ def main_loop():
                         response = close_application(app)
 
 
-            #respond back using audio
+            #response
             if (response == '' or response == None) and voice == True:
                 audio_file = 'resources/sounds/unsure.wav'
                 subprocess.call(['afplay', audio_file])
