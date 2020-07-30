@@ -353,12 +353,15 @@ def get_site(text, terms= None):
     elif text == 'search youtube':
         search_youtube = site_search.search_youtube(terms)
         return search_youtube
-    elif text == 'open duckduckgo':
-        get_duckduckgo = site_search.get_duckduckgo()
-        return get_duckduckgo
     elif text == 'search browser':
         search_browser = site_search.search_browser(terms)
         return search_browser
+    elif text == 'open duckduckgo':
+        get_duckduckgo = site_search.get_duckduckgo()
+        return get_duckduckgo
+    elif text == 'search duckduckgo':
+        search_duckduckgo = site_search.search_duckduckgo(terms)
+        return search_duckduckgo
     elif text == 'open google':
         get_google = site_search.get_google()
         return get_google
@@ -655,21 +658,28 @@ def main_loop():
                     and text_split[i+2] == 'for'):
                         terms = text_split[i+3:]
                         terms = '+'.join(terms)
-                        response = get_site('search youtube', terms= terms)
+                        response = get_site(text= 'search youtube', terms= terms)
 
             #search engines
-            #duckduckgo (general)
-            if (('open the internet' in text or 'open duckduckgo' in text)
-            and response == ''):
-                response = get_site('open duckduckgo')
-
-            if (('search for' in text or 'search the internet for' in text)
-            and response == ''):
+            if 'search for' in text and '.' in text and response == '':
                 for i in range(len(text_split)):
                     if text_split[i] == 'search' and text_split[i+1] == 'for':
                         terms = text_split[i+2:]
                         terms = '+'.join(terms)
-                        response = get_site('search browser', terms= terms)
+                        response = get_site(text= 'search browser', terms= terms)
+
+            #duckduckgo (default)
+            if (('open the internet' in text or 'open duckduckgo' in text)
+            and response == ''):
+                response = get_site('open duckduckgo')
+
+            if (('search for' in text or 'search the internet for' in text
+            or 'search duckduckgo for' in text) and response == ''):
+                for i in range(len(text_split)):
+                    if text_split[i] == 'search' and text_split[i+1] == 'for':
+                        terms = text_split[i+2:]
+                        terms = '+'.join(terms)
+                        response = get_site(text= 'search duckduckgo', terms= terms)
 
             #google
             if 'open google' in text and response == '':
@@ -681,7 +691,7 @@ def main_loop():
                     and text_split[i+2] == 'for'):
                         terms = text_split[i+3:]
                         terms = '+'.join(terms)
-                        response = get_site('search google', terms= terms)
+                        response = get_site(text= 'search google', terms= terms)
 
             #bing
             if 'open bing' in text and response == '':
@@ -693,7 +703,7 @@ def main_loop():
                     and text_split[i+2] == 'for'):
                         terms = text_split[i+3:]
                         terms = '+'.join(terms)
-                        response = get_site('search bing', terms= terms)
+                        response = get_site(text= 'search bing', terms= terms)
 
             #open application
             if 'open' in text and response == '':

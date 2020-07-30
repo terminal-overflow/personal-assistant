@@ -10,12 +10,17 @@ def search_youtube(terms):
     webbrowser.open_new(url= url)
     return 'searching youtube'
 
+def search_browser(terms):
+    url = f'https://www.{terms}'
+    webbrowser.open_new(url= url)
+    return 'searching'
+
 def get_duckduckgo():
     url = 'https://www.duckduckgo.com'
     webbrowser.open_new(url= url)
     return 'opening search engine'
 
-def search_browser(terms):
+def search_duckduckgo(terms):
     url = f'https://duckduckgo.com/?q={terms}'
     webbrowser.open_new(url= url)
     return 'searching'
