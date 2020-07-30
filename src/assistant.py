@@ -453,7 +453,7 @@ def main_loop():
 
         response = ''
         if wake_word(text= text) == True:
-            #check for just wake word
+            #check just for wake word
             if local_request == text:
                 audio_file = 'resources/sounds/accept.wav'
                 subprocess.call(['afplay', audio_file])
@@ -462,6 +462,10 @@ def main_loop():
                 text_split = text.split()
             else:
                 text = text.replace(f'{local_request} ', '')
+
+            #check for blank input for text mode
+            if text.strip() == '' and voice == 'text':
+                continue
 
             #check for greetings
             response = greeting(text)
