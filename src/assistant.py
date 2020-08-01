@@ -513,6 +513,8 @@ def main_loop():
                     continue
                 elif text == '' and voice == True:
                     response = ''
+                elif text == '' and voice == False:
+                    continue
                 else:
                     response = 'okay'
 
