@@ -93,6 +93,7 @@ The functions for this program are:
 * Get current time
 * Get current Date
 * Get spelling of word
+* What can you do...
 * Simple system controls
     * System report
     * Volume up

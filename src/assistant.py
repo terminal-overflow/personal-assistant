@@ -186,31 +186,40 @@ def get_spelling(text):
         elif 'spell' in word_list[i+1]:
             return ''
 
+def get_functions(text):
+    from resources import func_list
+    if text == 'partial':
+        partial = func_list.get_list('partial')
+        return partial
+    else:
+        full = func_list.get_list('full')
+        return full
+
 #system commands
 def system(command):
-    from resources import system_short
+    from resources import sys_commands
     if command == 'system report':
-        system_report = system_short.system_report()
+        system_report = sys_commands.system_report()
         return system_report
 
     if command == 'mute':
-        mute = system_short.mute()
+        mute = sys_commands.mute()
         return mute
 
     if command == 'unmute':
-        unmute = system_short.unmute()
+        unmute = sys_commands.unmute()
         return unmute
 
     if command == 'increase volume':
-        increase_volume = system_short.increase_volume()
+        increase_volume = sys_commands.increase_volume()
         return increase_volume
 
     if command == 'decrease volume':
-        decrease_volume = system_short.decrease_volume()
+        decrease_volume = sys_commands.decrease_volume()
         return decrease_volume
 
     if command == 'sleep':
-        sleep = system_short.sleep()
+        sleep = sys_commands.sleep()
         return sleep
 
 #return a second value for timer
@@ -464,7 +473,7 @@ def main_loop():
                 text = text.replace(f'{local_request} ', '')
 
             #check for blank input for text mode
-            if text.strip() == '' and voice == 'text':
+            if text.strip() == '' and voice == False:
                 continue
 
             #beginning of functions
@@ -483,6 +492,29 @@ def main_loop():
                 else:
                     print(response.capitalize())
                 exit()
+
+            #function list
+            if (('what can you do' == text or 'what are your abilities' == text
+            or 'what are your functions' == text) and response == ''):
+                response = get_functions('partial')
+                if voice == True:
+                    assistant_response(response)
+                    assistant_response('would you like the full list')
+                    text = record_audio()
+                else:
+                    print(response.capitalize())
+                    print('would you like the full list'.capitalize())
+                    text = input('Function: ')
+                text = str(text.lower())
+                if 'yes' in text:
+                    full_response = get_functions('full')
+                    for i in range(len(full_response)):
+                        print(full_response[i])
+                    continue
+                elif text == '' and voice == True:
+                    response = ''
+                else:
+                    continue
 
             #check for mode change
             if 'change mode' == text and response == '':
