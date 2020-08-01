@@ -314,14 +314,14 @@ def get_math(text):
 
 #make new iNote
 def get_inote(text):
-    file = open('resources/notes/notes_content.txt', 'w')
+    file = open('resources/settings/notes_content.txt', 'w')
     text = text.capitalize()
     file.write(text)
     file.close()
 
-    subprocess.call(['osascript', 'resources/notes/make_inote.applescript'])
+    subprocess.call(['osascript', 'resources/settings/make_inote.applescript'])
 
-    file = open('resources/notes/notes_content.txt', 'w')
+    file = open('resources/settings/notes_content.txt', 'w')
     file.write('')
     file.close()
 
