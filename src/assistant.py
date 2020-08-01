@@ -337,7 +337,7 @@ def get_note(text):
 
     file_name = uuid.uuid4().hex
     if file_path == '':
-        new_path = f'{os.path.dirname(__file__)}resources/notes/'
+        new_path = 'resources/notes/'
         if not os.path.exists(new_path):
             os.makedirs(new_path)
         file = open(f'resources/notes/{file_name}.txt', 'w')
