@@ -7,6 +7,9 @@ import random
 import subprocess
 import argparse
 
+#change directory into src/
+os.chdir(f'{os.path.dirname(os.path.realpath(__file__))}/')
+
 #get initial startup arguments
 ap = argparse.ArgumentParser()
 ap.add_argument('-m', '--mode', default= 'voice',
