@@ -514,7 +514,7 @@ def main_loop():
                 elif text == '' and voice == True:
                     response = ''
                 else:
-                    continue
+                    response = 'okay'
 
             #check for mode change
             if 'change mode' == text and response == '':
