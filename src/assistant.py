@@ -590,8 +590,10 @@ def main_loop():
                             print('Timer for how long')
                             text = input('Timer: ')
                         text = str(text.lower())
-                        if text == '':
+                        if text == '' and voice == True:
                             response = ''
+                        elif text == '' and voice == False:
+                            continue
                         else:
                             interval = get_timer(text)
                             if type(interval) == float:
@@ -610,8 +612,10 @@ def main_loop():
                         print('Timer for how long')
                         text = input('Timer: ')
                     text = str(text.lower())
-                    if text == '':
-                        response = ''
+                    if text == '' and voice == True:
+                            response = ''
+                    elif text == '' and voice == False:
+                        continue
                     else:
                         interval = get_timer(text)
                         if type(interval) == float:
@@ -652,8 +656,10 @@ def main_loop():
                 else:
                     print('What is your note')
                     text = input('Note: ')
-                if text == '':
+                if text == '' and voice == True:
                     response = ''
+                elif text == '' and voice == False:
+                    continue
                 else:
                     response = get_inote(text)
 
@@ -665,8 +671,10 @@ def main_loop():
                 else:
                     print('What is your note')
                     text = input('Note: ')
-                if text == '':
+                if text == '' and voice == True:
                     response = ''
+                elif text == '' and voice == False:
+                    continue
                 else:
                     response = get_note(text)
 
