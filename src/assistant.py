@@ -392,8 +392,8 @@ def get_site(text, terms= None):
     else:
         return ''
 
-#search for and open application on system
-def open_application(app):
+#search for and open/close application on system
+def get_application(app, state):
     application_dir = os.listdir('/Applications')
     application_dir1 = os.listdir('/System/Applications')
     application_dir2 = os.listdir('/System/Applications/Utilities')
@@ -410,36 +410,16 @@ def open_application(app):
         pass
 
     if f'{app}.app' in application_dir and not app.startswith('.'):
-        r = f'osascript -e \'tell application "{app}" to activate\''
-        result = subprocess.check_output(r, shell= True)
-        result = result.decode('UTF-8')
-
-        return 'opening'
-    return ''
-
-#search for and close application on system
-def close_application(app):
-    application_dir = os.listdir('/Applications')
-    application_dir1 = os.listdir('/System/Applications')
-    application_dir2 = os.listdir('/System/Applications/Utilities')
-    for i in range(len(application_dir)):
-        application_dir.append(application_dir[i].lower())
-
-    for i in range(len(application_dir1)):
-        application_dir.append(application_dir1[i].lower())
-
-    try:
-        for i in range(len(application_dir2)):
-            application_dir.append(application_dir2[i].lower())
-    except:
-        pass
-
-    if f'{app}.app' in application_dir and not app.startswith('.'):
-        r = f'osascript -e \'tell application "{app}" to quit\''
-        result = subprocess.check_output(r, shell= True)
-        result = result.decode('UTF-8')
-
-        return 'closing'
+        if state == 'open':
+            r = f'osascript -e \'tell application "{app}" to activate\''
+            result = subprocess.check_output(r, shell= True)
+            result = result.decode('UTF-8')
+            return 'opening'
+        else:
+            r = f'osascript -e \'tell application "{app}" to quit\''
+            result = subprocess.check_output(r, shell= True)
+            result = result.decode('UTF-8')
+            return 'closing'
     return ''
 
 def main_loop():
@@ -559,11 +539,8 @@ def main_loop():
                 response = get_time()
 
             #check spelling
-            if 'how do you spell' in text and response == '':
-                if voice == True:
-                    response = get_spelling(text)
-                else:
-                    pass
+            if 'how do you spell' in text and voice == True and response == '':
+                response = get_spelling(text)
 
             #system commands
             #system report
@@ -756,11 +733,11 @@ def main_loop():
                     if text_split[i] == 'open':
                         app = text_split[i+1:]
                         app = ' '.join(app)
-                        response = open_application(app)
+                        response = get_application(app= app, state= 'open')
             #open news application
             if (('what\'s the' in text and 'news' in text
             or 'what is the' in text and 'news' in text) and response == ''):
-                open_application('news')
+                get_application(app= 'news', state= 'open')
                 response = 'opening news'
 
             #close application
@@ -769,7 +746,7 @@ def main_loop():
                     if text_split[i] == 'close':
                         app = text_split[i+1:]
                         app = ' '.join(app)
-                        response = close_application(app)
+                        response = get_application(app= app, state= 'close')
 
 
             #response
