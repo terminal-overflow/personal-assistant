@@ -337,6 +337,9 @@ def get_note(text):
 
     file_name = uuid.uuid4().hex
     if file_path == '':
+        new_path = f'{os.path.dirname(__file__)}resources/notes/'
+        if not os.path.exists(new_path):
+            os.makedirs(new_path)
         file = open(f'resources/notes/{file_name}.txt', 'w')
     elif not file_path.startswith('/') or not file_path.endswith('/'):
         if not file_path.startswith('/') and file_path.endswith('/'):
@@ -537,7 +540,7 @@ def main_loop():
                     text = input('Wake word: ')
                 text = str(text.lower())
                 response = wake_word(text= text, command= 'change')
-            
+
             #reset wake word
             if 'reset wake word' in text and response == '':
                 response = wake_word(text= '', command= 'change')
