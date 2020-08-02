@@ -4,7 +4,8 @@
 This personal assistant uses speechrecognition to convert STT and uses pyttsx3 for TTS. The purpose of this program is to help you with certain tasks on your computer or to get information for you.
 
 ### Note
-This program is only available for MacOS computers at this moment in time.
+**The development of this program has slowed down and will be updated very occasionally.**
+This program is only available for MacOS (Darwin) computers.
 
 ### Dependencies
 * speechrecognition
