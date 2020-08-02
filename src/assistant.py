@@ -7,6 +7,11 @@ import random
 import subprocess
 import argparse
 
+#exit if platform is not MacOS
+import platform
+if platform.system() != 'Darwin':
+    exit()
+
 #change directory into src/
 os.chdir(f'{os.path.dirname(os.path.realpath(__file__))}/')
 
@@ -105,6 +110,19 @@ def wake_word(text= None, command= None):
     if text.startswith(wake_words):
         return True
     return False
+
+#get the text after the wake word
+def get_text(text):
+    text = text.lower()
+    text = text.split()
+    local_request = wake_word(command= 'request')
+    for i in range(len(text)):
+        if text[i] == local_request:
+            text = text[i:]
+            text = ' '.join(text)
+            return text
+    text = ' '.join(text)
+    return text
 
 #current date
 def get_date():
@@ -439,6 +457,7 @@ def main_loop():
 
         if voice == True:
             text = record_audio()
+            text = get_text(text)
         else:
             text = input(f'{local_request.capitalize()}: ')
             local_request = wake_word(command= 'request')
