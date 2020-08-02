@@ -5,22 +5,23 @@ with open('README.md', 'r') as readme_file:
 
 setup(
     name= 'personal-assistant',
-    version= '2.4.6',
+    version= '2.5',
     url= 'https://github.com/terminal-flow/personal-assistant',
     description= 'A virtual assistant that helps you with certain tasks or gets information for you.',
     long_description= ld,
     long_description_content_type= 'text/markdown',
     license= 'MIT',
+    keywords= 'personal virtual assistant',
+    install_requires= ['speechrecognition', 'wikipedia', 'pyttsx3', 'pyaudio'],
+    python_requires= '>=3.6',
+
+    #pypi
     #classifiers= [
-    #    'Development Status :: 5 - Production/Stable',
+    #    'Development Status :: 6 - Mature',
     #    'Intended Audience :: Developers',
     #    'License :: OSI Approved :: MIT License'
     #],
-    keywords= 'personal virtual assistant',
+    #package_dir= {'': 'src'},
     #packages= find_packages(),
     #py_modules= ['assistant'],
-    package_dir= {'': 'src'},
-    include_package_data= True,
-    install_requires= ['speechrecognition', 'wikipedia', 'pyttsx3', 'pyaudio'],
-    python_requires= '>=3.6'
 )
