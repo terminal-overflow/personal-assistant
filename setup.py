@@ -13,15 +13,5 @@ setup(
     license= 'MIT',
     keywords= 'personal virtual assistant',
     install_requires= ['speechrecognition', 'wikipedia', 'pyttsx3', 'pyaudio'],
-    python_requires= '>=3.6',
-
-    #pypi
-    #classifiers= [
-    #    'Development Status :: 6 - Mature',
-    #    'Intended Audience :: Developers',
-    #    'License :: OSI Approved :: MIT License'
-    #],
-    #package_dir= {'': 'src'},
-    #packages= find_packages(),
-    #py_modules= ['assistant'],
+    python_requires= '>=3.6'
 )
