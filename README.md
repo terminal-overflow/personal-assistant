@@ -18,7 +18,8 @@ This program is only available for MacOS (Darwin) computers.
 #### Setting up a virtual environment (optional)
 ```
 virtualenv <environment name>
-source <environment name>/bin/activate
+cd <environment name>
+source bin/activate
 ```
 
 ### Clone the repository (Developers)
@@ -37,7 +38,7 @@ cd personal-assistant
 
 ### Install
 ```
-pip3 install .
+pip3 install -r requirements.txt
 ```
 #### Note
 This may take around a minute
