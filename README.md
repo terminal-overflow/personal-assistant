@@ -14,7 +14,7 @@ This program is only available for MacOS (Darwin) computers.
 * wikipedia
 
 ---
-## Installation and Usage via GitHub
+## Installation via GitHub
 #### Setting up a virtual environment (optional)
 ```
 virtualenv [environment name]
@@ -32,7 +32,7 @@ source [environment name]/bin/activate
 
 ### Go to the project root
 ```
-cd personal-assistant
+cd path/to/personal-assistant
 ```
 
 ### Install
@@ -43,7 +43,6 @@ pip3 install -r requirements.txt
 This may take around a minute
 
 ### Run
-
 ```
 cd src
 ```
@@ -58,17 +57,18 @@ python3 assistant.py -h
 for more information on optional arguments.
 
 ---
-## Startup arguments
+## Usage
+### Startup arguments
 The optional startup arguments are mode and verbose.
 * mode `-m text` for startup text mode - default is voice mode
 * verbose `-v off` for no verbose - default is on
 
-## Startup with Voice Mode
+### Startup with Voice Mode
 Personal assistant will say initialising... and then begin to listen indefinitely.
 If the verbose argument is on, the speech it detects will be displayed in your terminal/IDE.
 Otherwise no text will be outputted, except for errors.
 
-## Startup with Text Mode
+### Startup with Text Mode
 Personal assistant will output initialising... and then wait for your command to be entered indefinitely.
 
 ### Wake word
