@@ -17,14 +17,13 @@ This program is only available for MacOS (Darwin) computers.
 ## Installation and Usage via GitHub
 #### Setting up a virtual environment (optional)
 ```
-virtualenv <environment name>
-cd <environment name>
-source bin/activate
+virtualenv [environment name]
+source [environment name]/bin/activate
 ```
 
 ### Clone the repository (Developers)
 ```
- git clone ...
+ git clone https://github.com/terminal-flow/personal-assistant.git
 ```
 
 ### Or Download (Non-Developer)
