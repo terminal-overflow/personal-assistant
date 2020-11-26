@@ -13,7 +13,7 @@ if platform.system() != 'Darwin':
     exit()
 
 #change directory into src/
-os.chdir(f'{os.path.dirname(os.path.realpath(__file__))}/')
+os.chdir(f'{os.path.dirname(os.path.abspath(__file__))}/')
 
 #get initial startup arguments
 ap = argparse.ArgumentParser()
