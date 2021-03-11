@@ -129,7 +129,7 @@ If you say an unknown command, personal assistant will either play a disregard t
 
 ---
 ## Exiting
-Personal assistant will exit by hearing one of three words:
+Personal assistant will exit by recognising one of three words:
 * Stop
 * Quit
 * Exit
