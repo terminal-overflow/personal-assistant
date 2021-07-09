@@ -136,4 +136,4 @@ Personal assistant will exit by recognising one of three words:
 
 ---
 ## License
-Personal assistant is released under the MIT license. See LICENSE for details.
+Personal assistant is released under the Apache License 2.0. See LICENSE for details.
