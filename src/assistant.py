@@ -33,7 +33,8 @@ or args['verbose'] != 'on' and args['verbose'] != 'off'):
 
 #startup
 def startup(mode):
-    response = 'Personal assistant initialised'
+    local_request = wake_word(command= 'request')
+    response = f'{local_request} initialised'
     if mode == 'text':
         print(response)
     else:
