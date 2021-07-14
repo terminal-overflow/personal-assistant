@@ -29,7 +29,7 @@ or args['verbose'] != 'on' and args['verbose'] != 'off'):
 #startup
 def startup(mode):
     local_request = wake_word(command= 'request')
-    response = f'{local_request} initialised'
+    response = f'{local_request.capitalize()} initialised'
     if mode == 'text':
         print(response)
     else:
