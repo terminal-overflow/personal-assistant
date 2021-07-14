@@ -7,11 +7,6 @@ import random
 import subprocess
 import argparse
 
-#exit if platform is not MacOS
-import platform
-if platform.system() != 'Darwin':
-    exit()
-
 #change directory into src/
 os.chdir(f'{os.path.dirname(os.path.abspath(__file__))}/')
 
