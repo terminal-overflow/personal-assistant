@@ -46,10 +46,9 @@ def system_report():
 
 def increase_volume():
     r = 'osascript -e \'get volume settings\''
-    result = subprocess.check_output(r, shell=True)
-    result = str(result)
+    result = subprocess.check_output(r, shell=True, universal_newlines= True)
     result, __, __, __ = result.split(', ')
-    result = result[16:]
+    result = result[14:]
     result = int(result)
     if result <= 80:
         result = result +20
@@ -60,10 +59,9 @@ def increase_volume():
 
 def decrease_volume():
     r = 'osascript -e \'get volume settings\''
-    result = subprocess.check_output(r, shell=True)
-    result = str(result)
+    result = subprocess.check_output(r, shell=True, universal_newlines= True)
     result, __, __, __ = result.split(', ')
-    result = result[16:]
+    result = result[14:]
     result = int(result)
     if result >= 20:
         result = result -20
