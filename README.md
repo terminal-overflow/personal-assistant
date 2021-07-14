@@ -51,7 +51,7 @@ The optional startup arguments are mode and verbose.
 * help `-h` for more information on these arguments
 
 ### Startup with Voice Mode
-Personal assistant will say initialising... and then begin to listen indefinitely.
+Personal assistant will say initialise and then begin to listen indefinitely.
 If the verbose argument is on, the speech it detects will be displayed in your terminal/IDE.
 Otherwise no text will be outputted, except for errors.
 
