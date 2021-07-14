@@ -659,9 +659,11 @@ def main_loop():
                 try:
                     response = wikipedia.summary(info, sentences= 2)
                 except ValueError:
-                    pass # to little options
+                    pass #to little options
                 except wikipedia.DisambiguationError:
-                    pass # to many options
+                    pass #to many options
+                except wikipedia.PageError:
+                    pass #no results found
 
             #make an iNote
             if 'make a note' in text and response == '':
