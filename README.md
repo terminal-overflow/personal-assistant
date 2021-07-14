@@ -14,12 +14,6 @@ This program is only available for MacOS (Darwin) computers.
 
 ---
 ## Installation via GitHub
-#### Setting up a virtual environment (optional)
-```
-virtualenv [environment name]
-source [environment name]/bin/activate
-```
-
 ### Clone the repository (Developers)
 ```
  git clone https://github.com/terminal-flow/personal-assistant.git
@@ -29,31 +23,24 @@ source [environment name]/bin/activate
 * Click the download button
 * Unzip the project file
 
-### Go to the project root
+### Change directory the project root
 ```
 cd path/to/personal-assistant
 ```
 
-### Install requirements
+### Install
 ```
-pip3 install -r requirements.txt
-```
-#### Note
-This may take around a minute
-
-### Run
-```
-cd src
-```
-and
-```
-python3 assistant.py
+source setup.sh
 ```
 or
 ```
-python3 assistant.py -h
+python3 installer
 ```
-for more information on optional arguments.
+#### Note
+**A virtualenv is automatically created and used.** This may take around a minute.
+
+### Run
+Follow the installation message on how to run personal assistant.
 
 ---
 ## Usage
@@ -61,6 +48,7 @@ for more information on optional arguments.
 The optional startup arguments are mode and verbose.
 * mode `-m text` for startup text mode - default is voice mode
 * verbose `-v off` for no verbose - default is on
+* help `-h` for more information on these arguments
 
 ### Startup with Voice Mode
 Personal assistant will say initialising... and then begin to listen indefinitely.
@@ -71,14 +59,14 @@ Otherwise no text will be outputted, except for errors.
 Personal assistant will output initialising... and then wait for your command to be entered indefinitely.
 
 ### Wake word
-The default wake word is 'computer'. To change the wake word, say/type 'change wake word' and then say/type your new **one word** wake word. To change back to default, say/type 'reset wake word'.
+The default wake word is 'computer'. To change the wake word, input 'change wake word' and then input your new **one word** wake word. To change back to default, input 'reset wake word'.
 
 ---
 ## Voice Mode
 If just the wake word is heard, personal assistant will play a welcoming tone and wait for your command for around 5 seconds. If no sound is heard, personal assistant will disregard.
 
 ## Text Mode
-All the inputs will need to be typed in your terminal/IDE, however, the wake word does not need to be typed. Most of the outputs will be text.
+All the inputs will need to be typed in your terminal/IDE, however, the wake word does not need to be typed.
 
 ---
 ## Functions
@@ -125,7 +113,7 @@ The functions for this program are:
 
 ---
 ## Unkown Commands
-If you say an unknown command, personal assistant will either play a disregard tone or output 'I'm not sure'.
+If you say an unknown command, personal assistant will disregard.
 
 ---
 ## Exiting
