@@ -7,11 +7,6 @@ import random
 import subprocess
 import argparse
 
-#exit if platform is not MacOS
-import platform
-if platform.system() != 'Darwin':
-    exit()
-
 #change directory into src/
 os.chdir(f'{os.path.dirname(os.path.abspath(__file__))}/')
 
@@ -34,7 +29,7 @@ or args['verbose'] != 'on' and args['verbose'] != 'off'):
 #startup
 def startup(mode):
     local_request = wake_word(command= 'request')
-    response = f'{local_request} initialised'
+    response = f'{local_request.capitalize()} initialised'
     if mode == 'text':
         print(response)
     else:
@@ -664,9 +659,11 @@ def main_loop():
                 try:
                     response = wikipedia.summary(info, sentences= 2)
                 except ValueError:
-                    pass # to little options
+                    pass #to little options
                 except wikipedia.DisambiguationError:
-                    pass # to many options
+                    pass #to many options
+                except wikipedia.PageError:
+                    pass #no results found
 
             #make an iNote
             if 'make a note' in text and response == '':
