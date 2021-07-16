@@ -10,6 +10,7 @@ if platform.system() != 'Darwin':
 #exit if python3 is not installed
 if sys.version_info.major != 3:
     print('No python3 installation was found!')
+    sys.exit(1)
 
 try:
     import os
