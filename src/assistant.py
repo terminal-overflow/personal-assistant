@@ -426,14 +426,20 @@ def get_application(app, state):
     if f'{app}.app' in application_dir and not app.startswith('.'):
         if state == 'open':
             r = f'osascript -e \'tell application "{app}" to activate\''
-            result = subprocess.check_output(r, shell= True)
-            result = result.decode('UTF-8')
-            return 'opening'
+            try:
+                result = subprocess.check_output(r, shell= True)
+                result = result.decode('UTF-8')
+                return 'opening'
+            except subprocess.CalledProcessError:
+                return ''
         else:
             r = f'osascript -e \'tell application "{app}" to quit\''
-            result = subprocess.check_output(r, shell= True)
-            result = result.decode('UTF-8')
-            return 'closing'
+            try:
+                result = subprocess.check_output(r, shell= True)
+                result = result.decode('UTF-8')
+                return 'closing'
+            except subprocess.CalledProcessError:
+                return ''
     return ''
 
 def main_loop():
@@ -485,7 +491,7 @@ def main_loop():
             if response == '':
                 response = get_math(text)
 
-            #stop personal-assistant
+            #stop
             if ('quit' == text or 'exit' == text or 'stop' == text):
                 response = 'goodbye'
                 if voice == True:
@@ -557,39 +563,43 @@ def main_loop():
             if 'how do you spell' in text and voice == True and response == '':
                 response = get_spelling(text)
 
-            #system commands
-            #system report
-            if (('system report' == text or 'system status' == text)
-            and response == ''):
-                response = system('system report')
+            try:
+                #system commands
+                #system report
+                if (('system report' == text or 'system status' == text)
+                and response == ''):
+                    response = system('system report')
 
-            #unmute
-            if ('unmute' == text or 'stop mute' == text) and response == '':
-                response = system('unmute')
+                #unmute
+                if ('unmute' == text or 'stop mute' == text) and response == '':
+                    response = system('unmute')
 
-            #mute
-            if 'mute' == text and response == '':
-                response = system('mute')
+                #mute
+                if 'mute' == text and response == '':
+                    response = system('mute')
 
-            #change volume
-            if 'volume' in text and response == '':
-                increase = ['volume up', 'increase volume',
-                'increase the volume']
-                decrease = ['volume down', 'decrease volume',
-                'decrease the volume']
+                #change volume
+                if 'volume' in text and response == '':
+                    increase = ['volume up', 'increase volume',
+                    'increase the volume']
+                    decrease = ['volume down', 'decrease volume',
+                    'decrease the volume']
 
-                for i in range(len(increase)):
-                    if increase[i] in text:
-                        response = system('increase volume')
+                    for i in range(len(increase)):
+                        if increase[i] in text:
+                            response = system('increase volume')
 
-                for i in range(len(decrease)):
-                    if decrease[i] in text:
-                        response = system('decrease volume')
+                    for i in range(len(decrease)):
+                        if decrease[i] in text:
+                            response = system('decrease volume')
 
-            #sleep
-            if 'sleep' == text and response == '':
-                response = system('sleep')
-                exit()
+                #sleep
+                if 'sleep' == text and response == '':
+                    response = system('sleep')
+                    exit()
+
+            except subprocess.CalledProcessError:
+                response = ''
 
             #set a timer
             if (('set a timer' in text or 'start a timer' in text
