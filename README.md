@@ -112,7 +112,7 @@ The functions for this program are:
 * Close... (apps on system)
 
 ---
-## Unkown Commands
+## Unknown Commands
 If you say an unknown command, personal assistant will disregard.
 
 ---
