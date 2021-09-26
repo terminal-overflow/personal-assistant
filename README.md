@@ -23,7 +23,7 @@ This program is only available for MacOS (Darwin) computers.
 * Click the download button
 * Unzip the project file
 
-### Change directory the project root
+### Change directory to the project root
 ```
 cd path/to/personal-assistant
 ```
